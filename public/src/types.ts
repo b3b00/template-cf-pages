@@ -8,3 +8,8 @@ export interface Dumb {
     x: number;    
     y: number;
 }
+
+export interface Result {
+    sum:number;
+    text:string;
+}

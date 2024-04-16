@@ -73,19 +73,21 @@ async function renderJson(env:Env, request:PRequest, data:any) {
     return response
 }
  
-router.get<PRequest, CF>('/sum/:x/:y', async (request:PRequest, env:Env) => {
+router.get<PRequest, CF>('/sum/:x/:y', async (request:PRequest, env:any) => {
     try {
         const x:number = parseInt(request.params.x);
         const y : number = parseInt(request.params.y);
         const dumb:Dumb = {x,y};
         const s = await sum(dumb);
-        return await renderOkJson(env, request, s);
+        return await renderOkJson(env, request, {sum:s,text:env.VARIABLE+'_'+s});        
     }
     catch(e) {
         return await renderInternalServorErrorJson(env,request,            
             errorResult([`error while getting sum :>${request.params.x}< and :>${request.params.y}<`,e.message],null));
     }
 });
+
+
 
 
 
